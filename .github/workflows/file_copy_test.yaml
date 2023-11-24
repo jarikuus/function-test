@@ -3,11 +3,16 @@ on: [push]
 jobs:
   build:
   runs-on: ubuntu-latest
+  defaults:
+    run:
+      working-directory: ./scripts
   steps:
     - name: Copy file...
       run: |
         touch test
         cp test test_1
+    - name: Run my script...
+      run: ./test_script.sh
     - name: Final check...
       run: |
         echo All is good!!
