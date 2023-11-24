@@ -1,12 +1,13 @@
 name: File copy test
 on: [push]
 jobs:
-  runs-on: ubuntu-latest
-  steps:
-    - name: Copy file...
-      run: |
-        touch test
-        cp test test_1
-    - name: Final check...
-      run: |
-        echo All is good!
+  test_copy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Copy file...
+        run: |
+          touch test
+          cp test test_1
+      - name: Final check...
+        run: |
+          echo All is good!
