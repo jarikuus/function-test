@@ -10,4 +10,4 @@ jobs:
         cp test test_1
     - name: Final check...
       run: |
-        echo All is good!
+        echo All is good!!
