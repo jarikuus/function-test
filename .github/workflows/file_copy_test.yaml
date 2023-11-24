@@ -1,13 +1,21 @@
 name: File copy test
 on: [push]
 jobs:
-  test_copy:
+  build:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+        working-directory: ./scripts
     steps:
+      - name: Check out the repository to the runner
+        uses: actions/checkout@v4  
       - name: Copy file...
         run: |
           touch test
           cp test test_1
+      - name: Run my script...
+        run: ./test_script.sh
       - name: Final check...
         run: |
-          echo All is good!
+          echo All is good!!
