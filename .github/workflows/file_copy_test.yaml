@@ -12,16 +12,16 @@ jobs:
       - name: Check out the repository to the runner
         uses: actions/checkout@v4
         with:
-          ref: ${{ github.event.pull_request.head.sha }}
+          ref: ${{ github.sha }}
       - name: Copy file...
         run: |
           touch test
           cp test test_1
       - name: Run my script...
         run:  bash ${GITHUB_WORKSPACE}/.scripts/test_script.sh
-      - name: Print head git commit message
+      - name: Get Head Commit Message
         id: get_head_commit_message
-        run: echo "::set-output name=headCommitMsg::$(git show -s --format=%s)"
+        run: echo "HEAD_COMMIT_MESSAGE=$(git show -s --format=%s)" >> "$GITHUB_OUTPUT"
       - name: Final check...
         run: |
           echo All is good!!
