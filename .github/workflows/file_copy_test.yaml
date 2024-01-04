@@ -19,6 +19,9 @@ jobs:
           cp test test_1
       - name: Run my script...
         run:  bash ${GITHUB_WORKSPACE}/.scripts/test_script.sh
+      - name: Logging
+        run: |
+          echo "${{toJSON(github.event)}}"
       - name: Get Head Commit Message
         id: get_head_commit_message
         run: |
