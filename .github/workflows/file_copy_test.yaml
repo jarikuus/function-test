@@ -4,13 +4,15 @@ jobs:
   build:
     runs-on: ubuntu-latest
     outputs:
-      text: ${{ github.event.head_commit.message }}
+      head-commit-message: ${{ steps.get_head_commit_message.outputs.headCommitMsg }}
     defaults:
       run:
         shell: bash
     steps:
       - name: Check out the repository to the runner
-        uses: actions/checkout@v4  
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
       - name: Copy file...
         run: |
           touch test
