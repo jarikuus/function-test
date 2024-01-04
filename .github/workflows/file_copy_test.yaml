@@ -35,8 +35,8 @@ jobs:
             echo "Commit message does not contain JIRA id, check failed"
             exit 1
           fi
-          if [[ "${{ github.event.ref }}" == *"JIRA-"* ]]; then
-            echo "Branch name contains IRA id, check ok"
+          if [[ "${{ github.event.ref }}" == *"JIRA-"* || "${{ github.event.ref }}" == *"main"* ]]; then
+            echo "Branch name contains JIRA id, check ok"
           else
             echo "Branch name does not contain JIRA id, check failed"
             exit 1
