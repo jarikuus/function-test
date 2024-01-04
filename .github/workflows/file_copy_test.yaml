@@ -12,7 +12,7 @@ jobs:
       - name: Check out the repository to the runner
         uses: actions/checkout@v4
         with:
-          ref: ${{ github.sha }}
+          ref: ${{ env.GITHUB_SHA }}
       - name: Copy file...
         run: |
           touch test
@@ -21,11 +21,9 @@ jobs:
         run:  bash ${GITHUB_WORKSPACE}/.scripts/test_script.sh
       - name: Get Head Commit Message
         id: get_head_commit_message
-        run: echo "HEAD_COMMIT_MESSAGE=$(git show -s --format=%s)" >> "$GITHUB_OUTPUT"
-      - name: Print the commit message
-        id: print_msg
         run: |
-          printf '%s\n' "$HEAD_COMMIT_MESSAGE" # This will output 'commit message'
+          echo "HEAD_COMMIT_MESSAGE=$(git show -s --format=%s)" >> "$GITHUB_OUTPUT"
+          echo "Testateur"
       - name: Final check...
         run: |
           echo All is good!!
