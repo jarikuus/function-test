@@ -29,7 +29,7 @@ jobs:
           if [[ "${{ github.event.head_commit.message }}" == *"JIRA-"* ]]; then
             echo "Commit has JIRA id, check ok"
           else
-            echo "Commit message does not contain JIRA id, check failed"
+            echo "Commit message is missing JIRA id, check failed"
             exit 1
           fi
           if [[ "${{ github.event.ref }}" == *"JIRA-"* || "${{ github.event.ref }}" == *"main"* ]]; then
