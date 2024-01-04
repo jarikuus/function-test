@@ -33,7 +33,7 @@ jobs:
             exit 1
           fi
           if [[ "${{ github.event.ref }}" == *"JIRA-"* || "${{ github.event.ref }}" == *"main"* ]]; then
-            echo "Branch name contains JIRA id, check ok"
+            echo "Branch name contains JIRA id or is main branch, check ok"
           else
             echo "Branch name doesn't contain JIRA id, check failed"
             exit 1
