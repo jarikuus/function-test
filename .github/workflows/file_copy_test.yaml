@@ -26,6 +26,14 @@ jobs:
         id: get_head_commit_message
         run: |
           echo "Commit message=${{ github.event.head_commit.message }}"
+      - name: Check if commit message contains JIRA id
+        run: |
+          if [[ "${{ github.event.head_commit.message }}" == *"JIRA-"* ]]; then
+            echo "Variable contains JIRA id, ok"
+          else
+            echo "Variable does not contain JIRA id"
+            exit 1
+          fi
       - name: Final check...
         run: |
           echo All is good!!
