@@ -22,10 +22,11 @@ jobs:
       - name: Logging
         run: |
           echo "${{toJSON(github.event)}}"
-      - name: Get Head Commit Message
+      - name: Print Head Commit Message and ref
         id: get_head_commit_message
         run: |
           echo "Commit message=${{ github.event.head_commit.message }}"
+          echo "Ref=${{ github.event.ref}}"
       - name: Check if commit has contains JIRA id
         run: |
           if [[ "${{ github.event.head_commit.message }}" == *"JIRA-"* ]]; then
