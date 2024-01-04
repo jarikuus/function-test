@@ -25,7 +25,7 @@ jobs:
       - name: Get Head Commit Message
         id: get_head_commit_message
         run: |
-          echo "$RUNNER_OS"
+          echo "${{ github.event.head_commit.message }}"
       - name: Final check...
         run: |
           echo All is good!!
