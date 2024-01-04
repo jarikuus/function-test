@@ -19,6 +19,9 @@ jobs:
           cp test test_1
       - name: Run my script...
         run:  bash ${GITHUB_WORKSPACE}/.scripts/test_script.sh
+      - name: Print head git commit message
+        id: get_head_commit_message
+        run: echo "::set-output name=headCommitMsg::$(git show -s --format=%s)"
       - name: Final check...
         run: |
           echo All is good!!
