@@ -23,7 +23,7 @@ jobs:
         id: get_head_commit_message
         run: |
           echo "HEAD_COMMIT_MESSAGE=$(git show -s --format=%s)" >> "$GITHUB_OUTPUT"
-          echo "Testateur"
+          echo "Message=$HEAD_COMMIT_MESSAGE"
       - name: Final check...
         run: |
           echo All is good!!
