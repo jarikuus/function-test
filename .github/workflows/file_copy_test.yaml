@@ -3,6 +3,8 @@ on: [push]
 jobs:
   build:
     runs-on: ubuntu-latest
+    outputs:
+      text: ${{ github.event.head_commit.message }}
     defaults:
       run:
         shell: bash
