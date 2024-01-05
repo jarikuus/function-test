@@ -27,7 +27,7 @@ jobs:
       - name: Check if commit and branch name contains JIRA id
         run: |
           if [[ "${{ github.event.head_commit.message }}" == *"JIRA-"* ]]; then
-            echo "Commit has JIRA id, check ok"
+            echo "Commit message has JIRA id, check ok"
           else
             echo "Commit message is missing JIRA id, check failed"
             exit 1
