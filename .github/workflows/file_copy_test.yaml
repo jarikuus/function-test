@@ -17,5 +17,5 @@ jobs:
         run:  bash ${GITHUB_WORKSPACE}/.scripts/test_script.sh
       - name: Final check...
         run: |
-          echo All is good!!
+          echo All is ok!!
 
