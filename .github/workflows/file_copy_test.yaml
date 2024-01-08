@@ -40,5 +40,5 @@ jobs:
           fi
       - name: Final check...
         run: |
-          echo All is good!!
+          echo All is ok!!
 
