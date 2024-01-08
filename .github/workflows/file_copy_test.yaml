@@ -8,13 +8,36 @@ jobs:
         shell: bash
     steps:
       - name: Check out the repository to the runner
-        uses: actions/checkout@v4  
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ env.GITHUB_SHA }}
       - name: Copy file...
         run: |
           touch test
           cp test test_1
       - name: Run my script...
         run:  bash ${GITHUB_WORKSPACE}/.scripts/test_script.sh
+      - name: Logging
+        run: |
+          echo "${{toJSON(github.event)}}"
+      - name: Print Head Commit Message and ref
+        run: |
+          echo "Commit message=${{ github.event.head_commit.message }}"
+          echo "Ref=${{ github.event.ref}}"
+      - name: Check if commit and branch name contains JIRA id
+        run: |
+          if [[ "${{ github.event.head_commit.message }}" == *"JIRA-"* ]]; then
+            echo "Commit has JIRA id, check ok"
+          else
+            echo "Commit message is missing JIRA id, check failed"
+            exit 1
+          fi
+          if [[ "${{ github.event.ref }}" == *"JIRA-"* || "${{ github.event.ref }}" == *"main"* ]]; then
+            echo "Branch name contains JIRA id or is main branch, check ok"
+          else
+            echo "Branch name doesn't contain JIRA id, check failed"
+            exit 1
+          fi
       - name: Final check...
         run: |
           echo All is good!!
