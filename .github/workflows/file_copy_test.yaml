@@ -7,7 +7,7 @@ jobs:
       run:
         shell: bash
     steps:
-      - name: Check out the repository to the runner
+      - name: Check out repository to the runner
         uses: actions/checkout@v4
         with:
           ref: ${{ env.GITHUB_SHA }}
