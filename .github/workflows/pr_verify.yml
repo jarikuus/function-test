@@ -30,7 +30,8 @@ jobs:
 
           echo "Commit messages for Pull Request #${PR_NUMBER}:"
           echo "$COMMITS"
-         
+          
+          COMMIT_COUNT="${{ github.event.base.repo.open_issues }}"
           echo "Number of commits in Pull Request #${PR_NUMBER}: ${COMMIT_COUNT}"
 
           if grep -q "JIRA-" build.log; then
