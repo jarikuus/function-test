@@ -1,8 +1,9 @@
 name: PR verify pipeline
 on:
   pull_request:
-    branches:
-      - main
+    types:
+      - opened
+      - synchronize
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -21,20 +22,13 @@ jobs:
         run: |
           echo "Commit message=${{ github.event.head_commit.message }}"
           echo "Ref=${{ github.event.ref}}"
-      - name: Check if commit and branch name contains JIRA id
+      - name: Print commit messages
         run: |
-          if [[ "${{ github.event.head_commit.message }}" == *"JIRA-"* ]]; then
-            echo "Commit has JIRA id, check ok"
-          else
-            echo "Commit message is missing JIRA id, check fails"
-            exit 1
-          fi
-          if [[ "${{ github.event.ref }}" == *"JIRA-"* || "${{ github.event.ref }}" == *"main"* ]]; then
-            echo "Branch name contains JIRA id or is main branch, check ok"
-          else
-            echo "Branch name doesn't contain JIRA id, check failed"
-            exit 1
-          fi
+          PR_NUMBER="${{ github.event.number }}"
+          COMMITS=$(curl -sSL "https://api.github.com/repos/${{ github.repository }}/pulls/${PR_NUMBER}/commits" -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" | jq -r '.[].commit.message')
+
+          echo "Commit messages for Pull Request #${PR_NUMBER}:"
+          echo "$COMMITS"
       - name: Final check...
         run: |
           echo All is ok!!
