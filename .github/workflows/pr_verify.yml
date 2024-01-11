@@ -26,9 +26,19 @@ jobs:
         run: |
           PR_NUMBER="${{ github.event.number }}"
           COMMITS=$(curl -sSL "https://api.github.com/repos/${{ github.repository }}/pulls/${PR_NUMBER}/commits" -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" | jq -r '.[].commit.message')
+          COMMIT_COUNT=$(git rev-list --count "origin/${{ github.event.pull_request.base.ref }}..${{ github.event.pull_request.head.ref }}")
 
           echo "Commit messages for Pull Request #${PR_NUMBER}:"
           echo "$COMMITS"
+         
+          echo "Number of commits in Pull Request #${PR_NUMBER}: ${COMMIT_COUNT}"
+
+          if grep -q "JIRA-" build.log; then
+            echo "String found in the build log!"
+          else
+            echo "String not found in the build log."
+            exit 1  # Fail the build if the string is not found
+          fi
       - name: Final check...
         run: |
           echo All is ok!!
